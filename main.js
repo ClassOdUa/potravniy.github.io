@@ -184,6 +184,9 @@
             $screen2Timer = screen2.document.querySelector("div#time_left");
             $screen2Message = screen2.document.querySelector("div#message_show");
             $screen2OpenCloseButton.textContent = "Закрыть окно суфлера";
+            screen2.onbeforeunload(function () {
+                screen2WindowClose();
+            })
             var screen1width = window.screen.width;
             var count = 0;
             //  Autofit
@@ -198,6 +201,10 @@
                 }
             }
         };
+        window.onbeforeunload(function () {
+            screen2WindowClose();
+        })
+
     }
     function screen2WindowClose() {
         $screen2Timer = null;
