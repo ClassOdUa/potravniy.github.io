@@ -228,7 +228,7 @@
                 if (currentSourceForOutput === $inputAndDisplayTimeCountUp) {
                     currentSourceForOutput = null;
                     $displayOutputTimer.textContent = "";
-                    if (screen2) $screen2Timer.textContent = "";
+                    if ($screen2Timer) $screen2Timer.textContent = "";
                 } else {
                     currentSourceForOutput = $inputAndDisplayTimeCountUp;
                     showTimer();
@@ -239,7 +239,7 @@
                 if (currentSourceForOutput === $inputAndDisplayTimeCountDown) {
                     currentSourceForOutput = null;
                     $displayOutputTimer.textContent = "";
-                    if (screen2) $screen2Timer.textContent = "";
+                    if ($screen2Timer) $screen2Timer.textContent = "";
                 } else {
                     currentSourceForOutput = $inputAndDisplayTimeCountDown;
                     showTimer();
@@ -250,7 +250,7 @@
                 if (currentSourceForOutput === $displayTimeLeft) {
                     currentSourceForOutput = null;
                     $displayOutputTimer.textContent = "";
-                    if (screen2) $screen2Timer.textContent = "";
+                    if ($screen2Timer) $screen2Timer.textContent = "";
                 } else {
                     currentSourceForOutput = $displayTimeLeft;
                     showTimer();
