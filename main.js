@@ -202,6 +202,7 @@
     function screen2WindowClose() {
         $screen2Timer = null;
         $screen2Message = null;
+        processMessage();
         screen2.close();
         screen2 = null;
         $screen2OpenCloseButton.textContent = "Создать окно суфлера";
