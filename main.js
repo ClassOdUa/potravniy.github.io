@@ -190,7 +190,7 @@
             var intID = setInterval(resizeWindow, 200);
             function resizeWindow() {
                 console.log("screen2 resize")
-                if (screen2.screenLeft >= screen1width) {
+                if ((screen2.screenLeft || screen2.screenX) >= screen1width) {
                     screen2.moveTo(screen1width, 0);
                     screen2.resizeTo(screen2.screen.availWidth, screen2.screen.availHeight);
                     if (count > 20) clearInterval(intID);
