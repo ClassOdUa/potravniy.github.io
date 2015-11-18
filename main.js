@@ -197,14 +197,14 @@
     //  Messaging section
     var $inputMessageString = document.querySelector("textarea#message");
     $inputMessageString.addEventListener("change", processMessage);
-    $inputMessageString.addEventListener("keydown", processKeyDow);
+    $inputMessageString.addEventListener("keydown", processKeyDown);
     function processMessage() {
-        if (screen2) {
+        if ($screen2Message) {
             $displayMessageString.textContent = $inputMessageString.value;
             $screen2Message.textContent = $inputMessageString.value;
         } else $displayMessageString.textContent = "Нет окна суфлера";
     }
-    function processKeyDow(event) {
+    function processKeyDown(event) {
         if (event.keyCode === 13) {
             processMessage();
             event.preventDefault();
