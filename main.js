@@ -190,7 +190,6 @@
         };
     }
     function screen2WindowClose() {
-        screen2 = null;
         $screen2Timer = null;
         $screen2Message = null;
         screen2.close();
