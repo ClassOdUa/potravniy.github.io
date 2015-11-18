@@ -179,7 +179,7 @@
     function screen2WindowCreate() {
         var strWindowFeatures = "menubar=no, location=no, locationbar=no, toolbar=no, personalbar=no, status=no, resizable=yes, scrollbars=no,status=no";
         var strWindowPositionAndSize = "height=500,width=400";
-        screen2 = window.open("screen.html", "screen2nd", strWindowPositionAndSize + "," + strWindowFeatures);
+        screen2 = window.open("screen2.html", "screen2nd", strWindowPositionAndSize + "," + strWindowFeatures);
         screen2.onload = function(){
             $screen2Timer = screen2.document.querySelector("div#time_left");
             $screen2Message = screen2.document.querySelector("div#message_show");
