@@ -194,7 +194,7 @@
         $screen2OpenCloseButton.textContent = "Создать окно суфлера";
     }
 
-
+    //  Messaging section
     var $inputMessageString = document.querySelector("textarea#message");
     $inputMessageString.addEventListener("change", processMessage);
     $inputMessageString.addEventListener("keydown", processKeyDow);
@@ -214,6 +214,8 @@
         }
     }
     var $displayMessageString = document.querySelector("div#message_show");
+
+    //  Timer output section
     var $displayOutputTimer = document.querySelector("div#time_left");
     var currentSourceForOutput = null;
     var showTimerIntervalID;
@@ -273,6 +275,7 @@
         }
     }
 
+    //  Functions
     function inputValidation($input, timer) {
         var input = validateInput($input);
         if (input.isValid) {
