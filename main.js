@@ -1,5 +1,4 @@
 ﻿window.onload = function () {
-    console.log(document.domain);
     var Timer = function () {
         this.value = 0;
         return this
@@ -263,7 +262,7 @@
         function showTimer() {
             showTimerIntervalID = setInterval(show, 100);
             function show() {
-                if (!screen2) {
+                if (!$screen2Timer) {
                     $displayOutputTimer.textContent = "";
                     return
                 }
