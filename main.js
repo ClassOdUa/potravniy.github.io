@@ -229,7 +229,8 @@
             case $buttonShowCountUp:
                 if (currentSourceForOutput === $inputAndDisplayTimeCountUp) {
                     currentSourceForOutput = null;
-                    $displayOutputTimer.textContent = $screen2Timer.textContent = "";
+                    $displayOutputTimer.textContent = "";
+                    if (screen2) $screen2Timer.textContent = "";
                 } else {
                     currentSourceForOutput = $inputAndDisplayTimeCountUp;
                     showTimer();
@@ -239,7 +240,8 @@
             case $buttonShowCountDown:
                 if (currentSourceForOutput === $inputAndDisplayTimeCountDown) {
                     currentSourceForOutput = null;
-                    $displayOutputTimer.textContent = $screen2Timer.textContent = "";
+                    $displayOutputTimer.textContent = "";
+                    if (screen2) $screen2Timer.textContent = "";
                 } else {
                     currentSourceForOutput = $inputAndDisplayTimeCountDown;
                     showTimer();
@@ -249,7 +251,8 @@
             case $buttonShowDeadline:
                 if (currentSourceForOutput === $displayTimeLeft) {
                     currentSourceForOutput = null;
-                    $displayOutputTimer.textContent = $screen2Timer.textContent = "";
+                    $displayOutputTimer.textContent = "";
+                    if (screen2) $screen2Timer.textContent = "";
                 } else {
                     currentSourceForOutput = $displayTimeLeft;
                     showTimer();
@@ -260,6 +263,10 @@
         function showTimer() {
             showTimerIntervalID = setInterval(show, 100);
             function show() {
+                if (!screen2) {
+                    $displayOutputTimer.textContent = "";
+                    return
+                }
                 $displayOutputTimer.textContent = $screen2Timer.textContent = currentSourceForOutput.value;
             }
         }
