@@ -199,7 +199,7 @@
     $inputMessageString.addEventListener("change", processMessage);
     $inputMessageString.addEventListener("keydown", processKeyDow);
     function processMessage() {
-        if ($screen2) {
+        if (screen2) {
             $displayMessageString.textContent = $inputMessageString.value;
             $screen2Message.textContent = $inputMessageString.value;
         } else $displayMessageString.textContent = "Нет окна суфлера";
