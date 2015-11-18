@@ -173,6 +173,7 @@
     $screen2OpenCloseButton = $body.querySelector("button#screen2");
     $screen2OpenCloseButton.addEventListener('click', openCloseScreen2);
     function openCloseScreen2() {
+        console.log("openCloseScreen2", screen2 == null);
         if (screen2) screen2WindowClose();
         else screen2WindowCreate();
     }
@@ -192,6 +193,7 @@
         $screen2Timer = null;
         $screen2Message = null;
         screen2.close();
+        screen2 = null;
         $screen2OpenCloseButton.textContent = "Создать окно суфлера";
     }
 
