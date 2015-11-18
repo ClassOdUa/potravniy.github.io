@@ -237,7 +237,7 @@
         clearInterval(showTimerIntervalID);
         $buttonShowCountUp.style['background-color'] = $buttonShowCountDown.style['background-color'] = $buttonShowDeadline.style['background-color'] = 'buttonface';
         if(!screen2) return
-        switch (event.srcElement) {
+        switch (event.target || event.srcElement) {
             case $buttonShowCountUp:
                 if (currentSourceForOutput === $inputAndDisplayTimeCountUp) {
                     currentSourceForOutput = null;
