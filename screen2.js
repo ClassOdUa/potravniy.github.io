@@ -4,9 +4,10 @@
     window.addEventListener("move", resizeWindow);
     //  Autofit
     function resizeWindow() {
+        console.log("screen2 resize")
         if (window.screenLeft > screen1width) {
-            win.moveTo(window.screenLeft, window.screenTop);
-            win.resizeTo(window.screen.width, window.screen.height);
+            win.moveTo(window.screen.availLeft, 0);
+            win.resizeTo(window.screen.availWidth, window.screen.availHeight);
         }
     }
 }
