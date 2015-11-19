@@ -298,7 +298,7 @@
                 var maxFontSize = 35;
                 var minStringLength = 4;
                 var maxStringLength = 8;
-                var fontSize = minFontSize + (maxStringLength - currentSourceForOutput.value.length) * (maxFontSize - minFontSize) / (maxStringLength - minStringLength);
+                var fontSize = Math.floor(minFontSize + (maxStringLength - currentSourceForOutput.value.length) * (maxFontSize - minFontSize) / (maxStringLength - minStringLength));
                 $screen2Timer.style['font-size'] = fontSize + 'vw';
                 $displayOutputTimer.textContent = $screen2Timer.textContent = currentSourceForOutput.value;
             }
