@@ -186,6 +186,7 @@
             $screen2OpenCloseButton.textContent = "Закрыть окно суфлера";
             screen2.addEventListener('unload', function () {
                 screen2WindowClose();
+                switchTimerOutput(event);
             });
             var screen1width = window.screen.width;
             var count = 0;
@@ -204,7 +205,7 @@
         window.addEventListener('unload', function (event) {
             if (screen2) screen2WindowClose();
         });
-
+        processMessage();
     }
     function screen2WindowClose() {
         $screen2Timer = null;
@@ -243,7 +244,11 @@
     function switchTimerOutput(event) {
         clearInterval(showTimerIntervalID);
         $buttonShowCountUp.style['background-color'] = $buttonShowCountDown.style['background-color'] = $buttonShowDeadline.style['background-color'] = 'buttonface';
-        if(!screen2) return
+        if (!screen2) {
+            currentSourceForOutput = null;
+            $displayOutputTimer.textContent = "";
+            return
+        }
         switch (event.target || event.srcElement) {
             case $buttonShowCountUp:
                 if (currentSourceForOutput === $inputAndDisplayTimeCountUp) {
@@ -253,7 +258,7 @@
                 } else {
                     currentSourceForOutput = $inputAndDisplayTimeCountUp;
                     showTimer();
-                    $buttonShowCountUp.style['background-color'] = 'green';
+                    $buttonShowCountUp.style['background-color'] = 'lawngreen';
                 }
                 break
             case $buttonShowCountDown:
@@ -264,7 +269,7 @@
                 } else {
                     currentSourceForOutput = $inputAndDisplayTimeCountDown;
                     showTimer();
-                    $buttonShowCountDown.style['background-color'] = 'green';
+                    $buttonShowCountDown.style['background-color'] = 'lawngreen';
                 }
                 break
             case $buttonShowDeadline:
@@ -275,9 +280,12 @@
                 } else {
                     currentSourceForOutput = $displayTimeLeft;
                     showTimer();
-                    $buttonShowDeadline.style['background-color'] = 'green';
+                    $buttonShowDeadline.style['background-color'] = 'lawngreen';
                 }
                 break
+            case screen2:
+                currentSourceForOutput = null;
+                $displayOutputTimer.textContent = "";
         }
         function showTimer() {
             showTimerIntervalID = setInterval(show, 100);
@@ -298,12 +306,7 @@
         var newTimeInSeconds = Math.floor(Date.now() / 1000);
         if (currentTimeInSeconds !== newTimeInSeconds) {
             currentTimeInSeconds = newTimeInSeconds;
-            //if (Event) {
-            //    myEvent = new Event('newSecond');
-            //} else {
-                myEvent = document.createEvent("CustomEvent");
-                myEvent.initCustomEvent('newSecond', true, false);
-            //}
+            myEvent = new Event('newSecond');
             $body.dispatchEvent(myEvent);
         }
     }
