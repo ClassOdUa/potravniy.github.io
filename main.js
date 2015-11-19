@@ -184,6 +184,7 @@
             $screen2Timer = screen2.document.querySelector("div#time_left");
             $screen2Message = screen2.document.querySelector("div#message_show");
             $screen2OpenCloseButton.textContent = "Закрыть окно суфлера";
+            processMessage();
             screen2.addEventListener('unload', function () {
                 screen2WindowClose();
                 switchTimerOutput(event);
@@ -205,7 +206,6 @@
         window.addEventListener('unload', function (event) {
             if (screen2) screen2WindowClose();
         });
-        processMessage();
     }
     function screen2WindowClose() {
         $screen2Timer = null;
@@ -294,6 +294,12 @@
                     $displayOutputTimer.textContent = "";
                     return
                 }
+                var minFontSize = 25;
+                var maxFontSize = 35;
+                var minStringLength = 4;
+                var maxStringLength = 8;
+                var fontSize = minFontSize + (maxStringLength - currentSourceForOutput.value.length) * (maxFontSize - minFontSize) / (maxStringLength - minStringLength);
+                $screen2Timer.style['font-size'] = fontSize + 'vw';
                 $displayOutputTimer.textContent = $screen2Timer.textContent = currentSourceForOutput.value;
             }
         }
@@ -301,8 +307,8 @@
 
     // Event emitter "newSecond"
     var currentTimeInSeconds = Math.floor(Date.now() / 1000);
-    var newSecondIntervalID = setInterval(changeCurrentTimeEverySecond, 100);
-    function changeCurrentTimeEverySecond() {
+    var newSecondIntervalID = setInterval(emittEventEverySecond, 100);
+    function emittEventEverySecond() {
         var newTimeInSeconds = Math.floor(Date.now() / 1000);
         if (currentTimeInSeconds !== newTimeInSeconds) {
             currentTimeInSeconds = newTimeInSeconds;
@@ -373,73 +379,4 @@
         }
         return timeString;
     }
-
-
-
-    //function convertTimeFromStringToSeconds(timeString) {
-    //    timeString
-    //    return timeInSeconds
-    //}
-
-
-    //$body.addEventListener("keyup", function (event) {
-    //    if (event.keyCode === 13 && $inputTime === document.activeElement) start();
-    //});
-    //$btnShowMessage.addEventListener("click", showMessage);
-    //$btnRemoveMessage.addEventListener("click", removeMessage);
-    //$textAreaMessage.addEventListener("keyup", function (event) {
-    //    if (event.keyCode === 13 && $textAreaMessage === document.activeElement) showMessage();
-    //})
-    //$textAreaMessage.addEventListener("keyup", function (event) {
-    //    if (event.keyCode === 27 && $textAreaMessage === document.activeElement) {
-    //        removeMessage();
-    //    }
-    //})
-
-    //function start() {
-    //    $textAreaMessage.focus();
-    //    var endTime = new Date();
-    //    var inputTime = $inputTime.value;
-    //    if (!inputTime) return;
-    //    createEndTime();
-    //    if (endTime < new Date()) {
-    //        endTime.setDate(endTime.getDate() + 1);
-    //    }
-    //    clearInterval(intervalID);
-    //    goCountDown();
-    //    intervalID = setInterval(goCountDown, 100);
-
-    //    function goCountDown() {
-    //        var timer = Math.floor((endTime - new Date()) / 1000);
-    //        if (timer < 0) return;
-    //        var h = Math.floor(timer / (3600));
-    //        var m = Math.floor((timer - h * 3600) / 60);
-    //        var s = Math.floor(timer - h * 3600 - m * 60);
-    //        var timerString = "";
-    //        if (h > 0) {
-    //            timerString = h + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
-    //            $divShowTimerBig.style["font-size"] = 25 + "vw";
-    //        } else if (m > 0) {
-    //            timerString = m + ":" + (s < 10 ? "0" + s : s);
-    //            $divShowTimerBig.style["font-size"] = 33 + "vw";
-    //        } else {
-    //            timerString = ":" + (s < 10 ? "0" + s : s);
-    //            $divShowTimerBig.style["font-size"] = 42 + "vw";
-    //        }
-    //        $divShowTimerSmall.innerHTML = timerString;
-    //        $divShowTimerBig.innerHTML = timerString;
-    //    }
-    //    function createEndTime() {
-    //        endTime.setHours(+inputTime.substring(0, 2));
-    //        endTime.setMinutes(+inputTime.substring(3, 5));
-    //        endTime.setSeconds(+inputTime.substring(6));
-    //    }
-    //}
-    //function showMessage() {
-    //    $divMessageShow.innerHTML = $textAreaMessage.value;
-    //}
-    //function removeMessage() {
-    //    $divMessageShow.innerHTML = "";
-    //    $textAreaMessage.value = "";
-    //}
 }
