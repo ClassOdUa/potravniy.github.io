@@ -298,12 +298,12 @@
         var newTimeInSeconds = Math.floor(Date.now() / 1000);
         if (currentTimeInSeconds !== newTimeInSeconds) {
             currentTimeInSeconds = newTimeInSeconds;
-            if (Event) {
-                myEvent = new Event('newSecond');
-            } else {
+            //if (Event) {
+            //    myEvent = new Event('newSecond');
+            //} else {
                 myEvent = document.createEvent("CustomEvent");
                 myEvent.initCustomEvent('newSecond', true, false);
-            }
+            //}
             $body.dispatchEvent(myEvent);
         }
     }
