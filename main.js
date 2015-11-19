@@ -294,8 +294,8 @@
                     $displayOutputTimer.textContent = "";
                     return
                 }
-                var minFontSize = 25;
-                var maxFontSize = 35;
+                var minFontSize = 23;
+                var maxFontSize = 40;
                 var minStringLength = 4;
                 var maxStringLength = 8;
                 var fontSize = Math.floor(minFontSize + (maxStringLength - currentSourceForOutput.value.length) * (maxFontSize - minFontSize) / (maxStringLength - minStringLength));
