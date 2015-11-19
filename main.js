@@ -105,21 +105,26 @@
     var $displayTimeLeft = $divDeadline.querySelector("input#deadline_show");
     var $buttonResetDeadline = $divDeadline.querySelector("button.reset");
     var $buttonShowDeadline = $divDeadline.querySelector("button.show");
-    var DeadlineTimer = new Timer();
-    DeadlineTimer.timeLeft = function () {
-        var timer = Math.floor((this.value - new Date()) / 1000);
-        if (timer < 0) return;
-        var h = Math.floor(timer / 3600);
-        var m = Math.floor((timer - h * 3600) / 60);
-        var s = Math.floor(timer - h * 3600 - m * 60);
-        var timerString = "";
-        if (h > 0) {
-            timerString = h + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
-        } else {
-            timerString = m + ":" + (s < 10 ? "0" + s : s);
+    var DeadlineTimer = {
+        value: undefined,
+        reset: function () {
+            DeadlineTimer.value = undefined;
+        },
+        timeLeft: function () {
+            var timer = Math.floor((this.value - new Date()) / 1000);
+            if (timer < 0) return;
+            var h = Math.floor(timer / 3600);
+            var m = Math.floor((timer - h * 3600) / 60);
+            var s = Math.floor(timer - h * 3600 - m * 60);
+            var timerString = "";
+            if (h > 0) {
+                timerString = h + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+            } else {
+                timerString = m + ":" + (s < 10 ? "0" + s : s);
+            }
+            return timerString;
         }
-        return timerString;
-    }
+    };
     $inputAndDisplayTimeDeadline.addEventListener('change', function () {
         var deadlineTimeInSeconds = validateInput($inputAndDisplayTimeDeadline);
         if (deadlineTimeInSeconds.isValid) {
@@ -180,7 +185,7 @@
         var strWindowFeatures = "menubar=no, location=no, locationbar=no, toolbar=no, personalbar=no, status=no, resizable=yes, scrollbars=no,status=no";
         var strWindowPositionAndSize = "height=500,width=400";
         screen2 = window.open("screen2.html", "screen2nd", strWindowPositionAndSize + "," + strWindowFeatures);
-        screen2.onload = function () {
+        screen2.addEventListener('load', function () {
             $screen2Timer = screen2.document.querySelector("div#time_left");
             $screen2Message = screen2.document.querySelector("div#message_show");
             $screen2OpenCloseButton.textContent = "Закрыть окно суфлера";
@@ -202,7 +207,7 @@
                     count++;
                 }
             }
-        };
+        });
         window.addEventListener('unload', function (event) {
             if (screen2) screen2WindowClose();
         });
