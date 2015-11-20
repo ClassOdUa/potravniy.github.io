@@ -50,8 +50,9 @@ div#time_left {
 	background-color: black;
     color: greenyellow;
     height: 120px;
+    line-height: 80px;
 	width: 100%;
-    font-size: 8em;
+    font-size: 5em;
     margin: 0;
     border-radius: 0;
     padding: 20px;

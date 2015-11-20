@@ -194,19 +194,19 @@
                 screen2WindowClose();
                 switchTimerOutput(event);
             });
-            var screen1width = window.screen.width;
-            var count = 0;
-            //  Autofit
-            var intID = setInterval(resizeWindow, 200);
-            function resizeWindow() {
-                console.log("screen2 resize")
-                if ((screen2.screenLeft || screen2.screenX) >= screen1width) {
-                    screen2.moveTo(screen1width, 0);
-                    screen2.resizeTo(screen2.screen.availWidth, screen2.screen.availHeight);
-                    if (count > 20) clearInterval(intID);
-                    count++;
-                }
-            }
+            //var screen1width = window.screen.width;
+            //var count = 0;
+            ////  Autofit
+            //var intID = setInterval(resizeWindow, 200);
+            //function resizeWindow() {
+            //    console.log("screen2 resize")
+            //    if ((screen2.screenLeft || screen2.screenX) >= screen1width) {
+            //        screen2.moveTo(screen1width, 0);
+            //        screen2.resizeTo(screen2.screen.availWidth, screen2.screen.availHeight);
+            //        if (count > 20) clearInterval(intID);
+            //        count++;
+            //    }
+            //}
         });
         window.addEventListener('unload', function (event) {
             if (screen2) screen2WindowClose();
