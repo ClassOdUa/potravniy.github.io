@@ -9,7 +9,7 @@ var Controller = function () {
 		var input = parseInput();
 		if(!input.isValid) throw "Wrong input.";
 		switch (event.target || event.srcElement) {
-			case Prompter.$buttonCountUp :
+			case window.Prompter.$buttonCountUp :
 				if(!that._timer){
 					that._timer = new Timer("countUp", input.value);
 				} else if (that._timer.type === "countUp" && !that._timer.paused) {
@@ -18,7 +18,7 @@ var Controller = function () {
 					that._timer.run();
 				}
 				break
-			case Prompter.$buttonCountDown :
+			case window.Prompter.$buttonCountDown :
 				if(!that._timer){
 					that._timer = new Timer("countDown", input.value);
 				} else if (that._timer.type === "countDown" && !that._timer.paused) {
@@ -27,18 +27,18 @@ var Controller = function () {
 					that._timer.run();
 				}
 				break
-			case Prompter.$buttonCountDeadline :
+			case window.Prompter.$buttonCountDeadline :
 				if(!that._timer){
 					that._timer = new Timer("deadline", input.value);
 				}
 				break
-			case Prompter.$buttonReset :
+			case window.Prompter.$buttonReset :
 				if (that._timer) that._timer.cancel();
 				that._timer = null;
 				break
 		}
 	}
-	Prompter.$body.addEventListener("click", that._buttonClickProcessing);
+	window.Prompter.$body.addEventListener("click", that._buttonClickProcessing);
 }
 
 module.exports = Controller;
@@ -61,24 +61,24 @@ module.exports = function (timeInSeconds, fullFormat) {
 }
 
 },{}],3:[function(require,module,exports){
-module.exports = function ($messageDivSecondDispl) {
-	var temp = $messageDivSecondDispl.textContent;
-	$messageDivSecondDispl.textContent = "";
+module.exports = function () {
+	var temp = window.Prompter.View.$messageDivSecondDispl.textContent;
+	window.Prompter.View.$messageDivSecondDispl.textContent = "";
 	var scrollHeight,
 		toggle = true;
 	var id = setInterval(cutContentToFitDiv, 4);
 	function cutContentToFitDiv() {
-		if (!scrollHeight) scrollHeight = $messageDivSecondDispl.scrollHeight;
+		if (!scrollHeight) scrollHeight = window.Prompter.View.$messageDivSecondDispl.scrollHeight;
 		if(toggle){
-			$messageDivSecondDispl.textContent = temp;
+			window.Prompter.View.$messageDivSecondDispl.textContent = temp;
 			toggle = false;
 		} else {
-			if($messageDivSecondDispl.scrollHeight > scrollHeight){
-				temp = $messageDivSecondDispl.textContent.slice(0, -1);
+			if(window.Prompter.View.$messageDivSecondDispl.scrollHeight > scrollHeight){
+				temp = window.Prompter.View.$messageDivSecondDispl.textContent.slice(0, -1);
 				toggle = true;
 			} else {
 				clearInterval(id);
-				Prompter.$showMessage.textContent = temp;
+				window.Prompter.$showMessage.textContent = temp;
 			}
 		}
 	}
@@ -141,8 +141,9 @@ window.onload = function () {
         $buttonReset: document.querySelector("button#reset"),
         $inputMessage: document.querySelector("textarea#message"),
         $showTimeLeft: document.querySelector("div#time_left"),
-        $showMessage: document.querySelector("div#message_show")
-    }
+        $showMessage: document.querySelector("div#message_show"),
+        View: {}
+    };
     require('./secondsEventEmitter.js');
     var controller = new Controller();
     var view = new View();
@@ -168,18 +169,18 @@ var Timer = function (typeOfTimer, enteredTimeInSeconds) {
 				}
 			}
 			this.pause = function(){
-				Prompter.$body.removeEventListener('newSecond', that.timeLeft);
+				window.Prompter.$body.removeEventListener('newSecond', that.timeLeft);
 				that.paused = true;
 				that.emit('timerPaused', customDetail());
 			}
 			this.run = function(){
-				Prompter.$body.addEventListener('newSecond', that.timeLeft);
+				window.Prompter.$body.addEventListener('newSecond', that.timeLeft);
 				that.paused = false;
 				that.emit('timerRun', customDetail());
 			}
 			break
 		case "countDown":
-			this.timerValue = enteredTimeInSeconds;
+			this.timerValue = (enteredTimeInSeconds) ? enteredTimeInSeconds : 3599;
 			this.deadline = 0;
 			this.timeLeft = function (){
 				that.timerValue--;
@@ -190,12 +191,12 @@ var Timer = function (typeOfTimer, enteredTimeInSeconds) {
 				}
 			}
 			this.pause = function(){
-				Prompter.$body.removeEventListener('newSecond', that.timeLeft);
+				window.Prompter.$body.removeEventListener('newSecond', that.timeLeft);
 				that.paused = true;
 				that.emit('timerPaused', customDetail());
 			}
 			this.run = function(){
-				Prompter.$body.addEventListener('newSecond', that.timeLeft);
+				window.Prompter.$body.addEventListener('newSecond', that.timeLeft);
 				that.paused = false;
 				that.emit('timerRun', customDetail());
 			}
@@ -217,18 +218,18 @@ var Timer = function (typeOfTimer, enteredTimeInSeconds) {
 				that.timerValue = Math.floor((that.deadline - new Date()) / 1000);
 				that.emit('timerChanged', customDetail());
 				if (that.timerValue === 0){
-					Prompter.$body.removeEventListener('newSecond', that.timeLeft);
+					window.Prompter.$body.removeEventListener('newSecond', that.timeLeft);
 					that.emit('timeOver', customDetail());
 				}
 			}
 			break
 	}
 	this.cancel = function(){
-		Prompter.$body.removeEventListener('newSecond', that.timeLeft);
+		window.Prompter.$body.removeEventListener('newSecond', that.timeLeft);
 		that.emit('timerCancelled', customDetail());
 	}
 	this.emit('timerStarted', customDetail());
-	Prompter.$body.addEventListener('newSecond', that.timeLeft);
+	window.Prompter.$body.addEventListener('newSecond', that.timeLeft);
 	function customDetail() {
 		return {
 			detail: {
@@ -303,7 +304,8 @@ function emitEventEverySecond() {
 
 
 },{"./emitEvent":4}],11:[function(require,module,exports){
-var parseInput = require('./parseInput');
+/* global Prompter */
+var parseInput = require('./parseInput.js');
 var toStr = require('./convertTimeFromSecondsToString.js');
 var fontSize = require("./fontSize.js");
 var fontColor = require("./fontColor.js");
@@ -313,7 +315,7 @@ var View = function () {
 	var that = this;
 	this._prompterWindow = undefined;
 	this._$timeOnPrompter = null;
-	this._$messageOnPrompter = null;
+	window.Prompter.View.$messageDivSecondDispl = null;
 	this._$prompterWindowButtonOnOff = document.querySelector("button#screen2");
 	Prompter.$showMessage.textContent = "Нет окна суфлера";
 
@@ -326,7 +328,7 @@ var View = function () {
 	    }
 	}
 	this._processMessage = function () {
-	    if (that._$messageOnPrompter) {
+	    if (window.Prompter.View.$messageDivSecondDispl) {
 	        that._showMessage();
 	    } else {
 	    	that._openPrompterWindow();
@@ -334,12 +336,9 @@ var View = function () {
 	    }
 	}
 	this._showMessage = function () {
-	        that._$messageOnPrompter.textContent = Prompter.$showMessage.textContent = Prompter.$inputMessage.value;
+	        window.Prompter.View.$messageDivSecondDispl.textContent = Prompter.$showMessage.textContent = Prompter.$inputMessage.value;
 	        Prompter.$inputMessage.value = "";
-	        cutContentToFitDiv(that._$messageOnPrompter);
-	}
-	this._cutContentToFitDivFunc = function(){
-		cutContentToFitDiv(that._$messageOnPrompter);	
+	        cutContentToFitDiv();
 	}
 	this._timerStarted = function(event) {
 		switch (event.detail.type) {
@@ -358,6 +357,7 @@ var View = function () {
 			case "deadline":
 				Prompter.$inputAndDisplayTime.value = event.detail.deadline;
 				Prompter.$buttonCountDeadline.style["background-color"] = "#0f0";
+				that._showTimeOnPrompter(event);
 				break
 		}
 	}
@@ -413,12 +413,12 @@ var View = function () {
 	    if(!that._prompterWindow) return;
 	    that._prompterWindow.addEventListener('load', function () {
 	        that._$timeOnPrompter = that._prompterWindow.document.querySelector("div#time_left");
-	        that._$messageOnPrompter = that._prompterWindow.document.querySelector("div#message_show");
+	        window.Prompter.View.$messageDivSecondDispl = that._prompterWindow.document.querySelector("div#message_show");
 	        that._$prompterWindowButtonOnOff.innerHTML = "Закрыть<br>второе<br>окно";
 	        that._showMessage();
 		    window.addEventListener('unload', that._prompterWindowCloseFunc);
 	        that._prompterWindow.addEventListener('unload', that._closePrompterWindow);
-	        that._prompterWindow.addEventListener('resize', that._cutContentToFitDivFunc);
+	        that._prompterWindow.addEventListener('resize', that.cutContentToFitDiv);
 	    });
 	}
 	this._closePrompterWindow = function() {
@@ -428,7 +428,7 @@ var View = function () {
 	    that._prompterWindow.close();
 		that._prompterWindow = undefined;
 		that._$timeOnPrompter = null;
-		that._$messageOnPrompter = null;
+		window.Prompter.View.$messageDivSecondDispl = null;
     	that._$prompterWindowButtonOnOff.innerHTML = "Создать<br>второе<br>окно";
     	Prompter.$showMessage.textContent = "Нет окна суфлера";
 	}
@@ -466,4 +466,4 @@ var View = function () {
 }
 
 module.exports = View;
-},{"./convertTimeFromSecondsToString.js":2,"./cutContentToFitDiv.js":3,"./fontColor.js":5,"./fontSize.js":6,"./parseInput":9}]},{},[7]);
+},{"./convertTimeFromSecondsToString.js":2,"./cutContentToFitDiv.js":3,"./fontColor.js":5,"./fontSize.js":6,"./parseInput.js":9}]},{},[7]);

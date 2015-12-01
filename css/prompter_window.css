@@ -22,9 +22,8 @@ div {
     padding: 0.5em;
     text-align: center;
     clear: both;
-    -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
-    -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
-    -o-transform:matrix(-1, 0, 0, 1, 0, 0);
+    -webkit-transform: scale(-1,1); /* Safari */
+    transform: scale(-1,1); /* Standard syntax */
 }
 div#time_left {
     color: greenyellow;
@@ -38,7 +37,7 @@ div#message_show {
     color: yellow;
     height: 30%;
 	width: 100%;
-    padding: 1%;
+    padding: 0;
     font-size: 7vw;
     line-height: 1;
     letter-spacing: 0.07em;
