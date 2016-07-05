@@ -92,7 +92,8 @@ div {
     width: 0;
     height: 0;
     top: -100px;
- }
+    z-index: 5;
+}
 
 canvas {
     position: absolute;
@@ -104,7 +105,7 @@ canvas {
 	height: 760px;
 }
 #static {
- 
+    z-index: 2;
 }
 
 img {

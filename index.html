@@ -1,32 +1,15 @@
 ﻿<!DOCTYPE HTML>
-<html>
-	<head>
-        <title>Timer</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" href="./css/reset.css">
-        <link rel="stylesheet" type="text/css" href="./css/main.css">
-        <script type="text/javascript" src="./js/browserifyed.js"></script>
-	</head>
-	<body>
-        <button id="up" class="start_stop" title="Пуск/пауза">Прямой отсчет<br></button><!--
-     --><button id="down" class="start_stop" title="Пуск/пауза">Обратный отсчет<br></button><!--
-     --><input id="time" type="text" maxlength="8" placeholder="00:00:00" title="Введите шесть цифр: ЧЧММСС и Enter. Максимальное значение 23:59:59"/><!--
-     --><button id="screen2">Окно<br>суфлера<br></button><!--
-     --><button id="deadline_start" title="Только пуск">Остаток времени<br>пуск</button><!--
-     --><button id="reset">Сброс</button><!--
-     --><div id="time_left"></div>
-        <div id="message_show"></div>
-        <textarea id="message" type="text" maxlength="60" placeholder="Окно ввода сообщения" title="Enter завершает ввод и отправляет текст на экран суфлера. Esc очищает ввод."></textarea>
-        <div id="container">
-            <div id="banner">
-                <a href="http://live-tv.net.ua">
-                    <h1><em>Live-TV Service</em></h1>
-                    <p>Доставка вещания телеканала провайдерам</p>
-                    <p>Онлайн трансляция телеканала на сайте</p>
-                    <p>Оптимизация вещания канала для 3G сетей</p>
-                </a>
-            </div>
-        </div>
-        <footer>&copy; Viacheslav Potravnyi</footer>
-    </body>
+<html lang="ru-UA">
+<head>
+	<title>Arkanoid</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="http://fonts.googleapis.com/css?family=Courgette:400" rel="stylesheet" type="text/css">
+    <script src="js/require.js" data-main="js/main.js"></script>
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body><div id="play">.t.</div>
+    <section></section>
+    <canvas id="static" width="1280" height="760"></canvas>
+</body>
 </html>
